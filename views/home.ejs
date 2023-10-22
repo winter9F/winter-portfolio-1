@@ -1,0 +1,13 @@
+<% layout("layout/boilerplate") %>
+
+    <div class="text-center">
+        <h1 class="mb-5 f-1">HOME</h1>
+    </div>
+    <div class="text-center">
+        <div class="mb-3 ">
+            <%if(currentUser){%>
+                <button class="btn btn-warning">Test</button>
+                <%}%>
+        </div>
+        <a class="btn btn-success btn-lg" href="/explore">Explore</a>
+    </div>

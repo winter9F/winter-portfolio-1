@@ -1,0 +1,24 @@
+{
+  "name": "winter-portfolio-1",
+  "version": "1.0.0",
+  "description": "A small app meant to replicate systems in apps like Facebook and Myspace, where a user is able to upload content to their own personal user page.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.6.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
+    "path": "^0.12.7"
+  }
+}
