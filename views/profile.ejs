@@ -1,0 +1,212 @@
+<% layout("layout/boilerplate") %>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="d-sm-none d-md-block col-sm-2 border border-dark-subtle p-3 align-self-start ">
+                <div class="flex-fill justify-content-center">
+                    <%for( let {image:{url}} of avatar){%>
+
+                        <img src="<%=url%>" class="rounded float-start m-2 flex-fill "
+                            style="min-width: 95%; max-width: 100%;" alt="">
+
+                        <%}%>
+                </div>
+                <%if(!avatar.length){%>
+                    <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1698336656/No_user_image_l3xbpn.jpg"
+                        class="rounded float-start m-2 flex-fill " style="min-width: 95%; max-width: 100%;" alt="">
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avatarModal">
+                        Upload a user avatar
+                    </button>
+
+
+                    <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="userAvatarLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="userAvatarLabel">New Post</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/avatar" method="POST" enctype="multipart/form-data"
+                                        class="needs-validation" novalidate>
+                                        <input class="form-control" name="image" type="file" id="formFile" required>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-dark">submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        </p>
+                        <%if(avatar.length){%>
+
+                            <form action="">
+                                <button class="btn btn-sm btn-dark">New Avatar</button>
+                            </form>
+                            <%}%>
+                                </p>
+
+            </div>
+
+
+
+
+
+
+
+
+            <div class="col-xs-9 col-md-6 border border-dark-subtle p-3 ms-3 me-5">
+                <%if(post.length){%>
+                    <%for( let {text,image:[{url}]} of post){%>
+                        <div class="card mb-3" style="">
+                            <img src="<%=[url]%>" class="img-fluid" alt="">
+
+                            <div class="card-body">
+
+                                <p class="card-text">
+                                    <%=text%>
+                                </p>
+
+                            </div>
+                        </div>
+                        <%}%>
+
+
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#postModal">
+                                New Post
+                            </button>
+
+
+                            <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="userPostLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="userPostLabel">New Post</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/profile" method="POST" enctype="multipart/form-data"
+                                                class="needs-validation" novalidate>
+                                                <div class="form-floating mt-5">
+                                                    <textarea class="form-control" id="text"
+                                                        placeholder="Leave a comment here..." name="text"
+                                                        style="height: 150px" required></textarea>
+                                                    </textarea>
+                                                    <label for="floatingTextarea2">Leave a comment here...</label>
+                                                </div>
+                                                <div class="mb-5">
+                                                    <label for="formFileMultiple" class="form-label"></label>
+                                                    <input class="form-control" type="file" name="image"
+                                                        id="formFileMultiple" multiple required>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-dark mb-3">Create Post</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <%if(!post.length){%>
+                                    <form action="/profile" method="POST" enctype="multipart/form-data"
+                                        class="needs-validation" novalidate>
+                                        <div class="form-floating mt-5">
+                                            <textarea class="form-control" id="text" placeholder="Make your first post!"
+                                                name="text" style="height: 150px" required></textarea>
+                                            </textarea>
+                                            <label for="floatingTextarea2">Make your first post!</label>
+                                        </div>
+                                        <div class="mb-5">
+                                            <label for="formFileMultiple" class="form-label"></label>
+                                            <input class="form-control" type="file" name="image" id="formFileMultiple"
+                                                multiple required>
+                                        </div>
+
+                                        <button class="btn btn-dark mb-3">Create Post</button>
+                                        <%}%>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-3 border border-dark-subtle d-sm-none d-md-block align-self-start">
+                <div class="flex-fill">
+                    <%for( let {image:[{url}]} of post){%>
+
+                        <img src="<%=[url]%>" class="rounded float-start m-2 flex-fill " style="max-width: 25%;" alt="">
+
+                        <%}%>
+                </div>
+                <div>
+                    <%if(post.length <=11){%>
+
+                        <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal"
+                            data-bs-target="#imageModal">
+                            Upload new image
+                        </button>
+
+
+                        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="userImageLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="userImageLabel">Upload new image</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/profile" method="POST" enctype="multipart/form-data"
+                                            class="needs-validation" novalidate>
+                                            <input class="form-control" name="image" type="file" id="formFile" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-dark">submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%}%>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <script>
+            (() => {
+                'use strict'
+
+                const forms = document.querySelectorAll('.needs-validation')
+
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+        </script>

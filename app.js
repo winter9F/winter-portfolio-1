@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
+
 const express = require("express");
 const ejsMate = require("ejs-mate");
 const path = require("path");
@@ -7,8 +12,14 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
+const multer = require("multer");
+const { storage } = require("./cloudinary");
+const upload = multer({ storage });
+
 
 const User = require("./models/userModel");
+const Post = require("./models/postModel");
+const Avatar = require("./models/avatarModel");
 
 mongoose.connect('mongodb://127.0.0.1:27017/project1').
     catch(error => handleError(error));
@@ -57,11 +68,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.render("user/login")
+    res.render("user/login");
 });
 
 app.post("/login", passport.authenticate("local", { failureMessage: true, failureRedirect: "/explore" }), (req, res) => {
-    req.flash("success", "Successfully signed in!")
+    req.flash("success", "Successfully signed in!");
     res.redirect("/")
 
 })
@@ -101,8 +112,39 @@ app.post("/register", async (req, res) => {
 
 
 app.get("/explore", async (req, res) => {
-    res.render("explore")
-})
+    const post = await Post.find()
+    console.log(post.text)
+    res.render("explore", { post })
+});
+
+app.get("/profile", async (req, res) => {
+    const avatar = await Avatar.find();
+    const post = await Post.find();
+    res.render("profile", { post, avatar })
+});
+
+app.post("/profile", upload.array("image"), async (req, res, next) => {
+    const post = new Post(req.body);
+    post.image = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    await post.save();
+
+    res.redirect("/")
+});
+app.post("/avatar", upload.single("image"), async (req, res, next) => {
+    const avatar = new Avatar(req.body);
+    avatar.image = {
+        url: req.file.path,
+        filename: req.file.filename,
+
+    }
+    await avatar.save();
+
+    res.redirect("/")
+});
+
+
+
+
 
 
 
