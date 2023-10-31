@@ -13,7 +13,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const multer = require("multer");
-const { storage } = require("./cloudinary");
+const { storage, cloudinary } = require("./cloudinary");
 const upload = multer({ storage });
 
 
@@ -123,13 +123,18 @@ app.get("/profile", async (req, res) => {
     res.render("profile", { post, avatar })
 });
 
-app.post("/profile", upload.array("image"), async (req, res, next) => {
+app.post("/profile", upload.single("image"), async (req, res, next) => {
     const post = new Post(req.body);
-    post.image = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    post.image = {
+        url: req.file.path,
+        filename: req.file.filename,
+
+    }
     await post.save();
 
-    res.redirect("/")
+    res.redirect("/profile")
 });
+
 app.post("/avatar", upload.single("image"), async (req, res, next) => {
     const avatar = new Avatar(req.body);
     avatar.image = {
@@ -139,8 +144,40 @@ app.post("/avatar", upload.single("image"), async (req, res, next) => {
     }
     await avatar.save();
 
-    res.redirect("/")
+    res.redirect("/profile")
 });
+
+
+app.put("/profile/:id", upload.single("image"), async (req, res) => {
+    const { id } = (req.params);
+    if (!req.file) {
+        const post = await Post.findByIdAndUpdate(id, req.body);
+        await post.save();
+    } else {
+        const post = await Post.findByIdAndUpdate(id, req.body);
+        const [{ filename }] = post.image;
+        await cloudinary.uploader.destroy(filename);
+        post.image = {
+            url: req.file.path,
+            filename: req.file.filename,
+        }
+        await post.save();
+    };
+
+    res.redirect("/profile");
+
+})
+
+
+app.delete("/profile/:id", async (req, res) => {
+    const { id } = (req.params);
+    const data = await Post.findById(id);
+    const [{ filename }] = data.image;
+    await cloudinary.uploader.destroy(filename);
+    await Post.findByIdAndDelete(id);
+    res.redirect("/profile");
+
+})
 
 
 

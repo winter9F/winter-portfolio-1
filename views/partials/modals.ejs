@@ -1,0 +1,70 @@
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="userPostLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="userPostLabel">New Post</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/profile" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="form-floating mt-5">
+                        <textarea class="form-control" id="text" placeholder="Leave a comment here..." name="text"
+                            style="height: 150px" required></textarea>
+                        </textarea>
+                        <label for="floatingTextarea2">Leave a comment
+                            here...</label>
+                    </div>
+                    <div class="mb-5">
+                        <input class="form-control" name="image" type="file" id="formFile" required>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-dark mb-3">Create Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="userImageLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="userImageLabel">Upload new image</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/profile" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <input class="form-control" name="image" type="file" id="formFile" required>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-dark">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="userAvatarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="userAvatarLabel">Upload an Avater</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/avatar" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <input class="form-control" name="image" type="file" id="formFile" required>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-dark">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
