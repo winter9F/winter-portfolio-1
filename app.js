@@ -12,20 +12,23 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
-const multer = require("multer");
-const { storage, cloudinary } = require("./cloudinary");
-const upload = multer({ storage });
+
+
+const profileRouter = require("./routes/profileRouter");
+const registerRouter = require("./routes/registerRouter")
+const loginRouter = require("./routes/loginRouter")
 
 
 const User = require("./models/userModel");
-const Post = require("./models/postModel");
-const Avatar = require("./models/avatarModel");
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/project1').
     catch(error => handleError(error));
 
 
 const app = express();
+
+
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -63,19 +66,16 @@ app.use((req, res, next) => {
     next();
 })
 
+
+app.use("/profile", profileRouter);
+app.use("/register", registerRouter);
+app.use("/login", loginRouter);
+
+
 app.get("/", (req, res) => {
     res.render("home")
 });
 
-app.get("/login", (req, res) => {
-    res.render("user/login");
-});
-
-app.post("/login", passport.authenticate("local", { failureMessage: true, failureRedirect: "/explore" }), (req, res) => {
-    req.flash("success", "Successfully signed in!");
-    res.redirect("/")
-
-})
 
 app.get("/logout", (req, res) => {
     try {
@@ -90,99 +90,11 @@ app.get("/logout", (req, res) => {
     }
 });
 
-app.get("/register", (req, res) => {
-    res.render("user/register")
-});
-
-app.post("/register", async (req, res) => {
-    try {
-        const { name, email, username, password } = req.body;
-        const user = new User({ name, email, username });
-        const registeredUser = await User.register(user, password);
-        req.login(registeredUser, err => {
-            if (err) return next(err);
-            req.flash('success', 'Welcome!');
-            res.redirect('/');
-        })
-    } catch (e) {
-        req.flash('error', e.message);
-        res.redirect('register');
-    }
-});
-
 
 app.get("/explore", async (req, res) => {
-    const post = await Post.find()
-    console.log(post.text)
+
     res.render("explore", { post })
 });
-
-app.get("/profile", async (req, res) => {
-    const avatar = await Avatar.find();
-    const post = await Post.find();
-    res.render("profile", { post, avatar })
-});
-
-app.post("/profile", upload.single("image"), async (req, res, next) => {
-    const post = new Post(req.body);
-    post.image = {
-        url: req.file.path,
-        filename: req.file.filename,
-
-    }
-    await post.save();
-
-    res.redirect("/profile")
-});
-
-app.post("/avatar", upload.single("image"), async (req, res, next) => {
-    const avatar = new Avatar(req.body);
-    avatar.image = {
-        url: req.file.path,
-        filename: req.file.filename,
-
-    }
-    await avatar.save();
-
-    res.redirect("/profile")
-});
-
-
-app.put("/profile/:id", upload.single("image"), async (req, res) => {
-    const { id } = (req.params);
-    if (!req.file) {
-        const post = await Post.findByIdAndUpdate(id, req.body);
-        await post.save();
-    } else {
-        const post = await Post.findByIdAndUpdate(id, req.body);
-        const [{ filename }] = post.image;
-        await cloudinary.uploader.destroy(filename);
-        post.image = {
-            url: req.file.path,
-            filename: req.file.filename,
-        }
-        await post.save();
-    };
-
-    res.redirect("/profile");
-
-})
-
-
-app.delete("/profile/:id", async (req, res) => {
-    const { id } = (req.params);
-    const data = await Post.findById(id);
-    const [{ filename }] = data.image;
-    await cloudinary.uploader.destroy(filename);
-    await Post.findByIdAndDelete(id);
-    res.redirect("/profile");
-
-})
-
-
-
-
-
 
 
 app.listen(3000, () => {
