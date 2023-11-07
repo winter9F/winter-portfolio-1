@@ -1,0 +1,7 @@
+body {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://res.cloudinary.com/dqggp5pir/image/upload/v1698775093/bgCarousel%20Home/Home_11_zk5obt.jpg);
+    background-size: cover;
+    background-position: center;
+}

@@ -11,7 +11,7 @@ const Avatar = require("../models/avatarModel");
 
 router.get("/", async (req, res) => {
     const avatar = await Avatar.find();
-    const post = await Post.find();
+    const post = await Post.find().populate("author");
     res.render("profile", { post, avatar })
 });
 
@@ -23,6 +23,7 @@ router.post("/", upload.single("image"), async (req, res, next) => {
         filename: req.file.filename,
 
     };
+    post.author = req.user;
     await post.save();
 
     res.redirect("/profile")
@@ -36,9 +37,31 @@ router.post("/avatar", upload.single("image"), async (req, res, next) => {
         filename: req.file.filename,
 
     };
+    avatar.author = req.user;
     await avatar.save();
 
     res.redirect("/profile")
+});
+
+
+router.put("/avatar/:id", upload.single("image"), async (req, res) => {
+    const { id } = (req.params);
+    if (!req.file) {
+        const avatar = await Avatar.findByIdAndUpdate(id, req.body);
+        await avatar.save();
+    } else {
+        const avatar = await Avatar.findByIdAndUpdate(id, req.body);
+        const { filename } = avatar.image;
+        await cloudinary.uploader.destroy(filename);
+        avatar.image = {
+            url: req.file.path,
+            filename: req.file.filename,
+        };
+        await avatar.save();
+    };
+
+    res.redirect("/profile");
+
 });
 
 

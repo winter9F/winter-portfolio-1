@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
-
+const passport = require("passport");
 
 
 router.get("/", (req, res) => {
@@ -13,8 +12,6 @@ router.post("/", passport.authenticate("local", { failureMessage: true, failureR
     res.redirect("/")
 
 });
-
-
 
 
 module.exports = router;

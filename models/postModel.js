@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const postSchema = new mongoose.Schema({
     text: {
         type: String,
@@ -8,7 +9,15 @@ const postSchema = new mongoose.Schema({
         url: { type: String },
         filename: { type: String },
 
-    }]
+    }],
+    author: {
+        type: "ObjectId",
+        ref: "User"
+    },
+    created_date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = mongoose.model("Post", postSchema);

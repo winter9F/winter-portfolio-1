@@ -20,7 +20,8 @@ const loginRouter = require("./routes/loginRouter")
 
 
 const User = require("./models/userModel");
-
+const Post = require("./models/postModel");
+const Avatar = require("./models/avatarModel");
 
 mongoose.connect('mongodb://127.0.0.1:27017/project1').
     catch(error => handleError(error));
@@ -36,6 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')))
 
 const sessionConfig = {
     secret: 'eaeiwojasfwdifsfdrjs1x213r232424290ze98r09t8!',
@@ -93,7 +95,15 @@ app.get("/logout", (req, res) => {
 
 app.get("/explore", async (req, res) => {
 
-    res.render("explore", { post })
+    res.render("explore")
+});
+
+app.get("/user/:id", async (req, res) => {
+    const { id } = req.params;
+    post = await Post.find({ author: id })
+    avatar = await Avatar.find({ author: id })
+    res.render("user", { post, avatar })
+
 });
 
 

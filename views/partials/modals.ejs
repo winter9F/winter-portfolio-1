@@ -48,7 +48,6 @@
 </div>
 
 
-
 <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="userAvatarLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -59,6 +58,10 @@
             <div class="modal-body">
                 <form action="/profile/avatar" method="POST" enctype="multipart/form-data" class="needs-validation"
                     novalidate>
+                    <textarea class="form-control" id="text" placeholder="Tell us about you..." name="text"
+                        style="height: 150px" required></textarea>
+                    </textarea>
+                    <label for="floatingTextarea2">Tell us about you...</label>
                     <input class="form-control" name="image" type="file" id="formFile" required>
 
             </div>

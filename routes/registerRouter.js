@@ -4,7 +4,6 @@ const router = express.Router();
 const User = require("../models/userModel");
 
 
-
 router.get("/", (req, res) => {
     res.render("user/register")
 });
@@ -24,8 +23,6 @@ router.post("/", async (req, res) => {
         res.redirect('/explore');
     }
 });
-
-
 
 
 module.exports = router;
