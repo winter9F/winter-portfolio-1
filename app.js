@@ -12,6 +12,13 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
+const { rateLimit } = require('express-rate-limit')
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet")
+
+
+const catchAsync = require("./utilites/catchAsync");
+const ExpressError = require("./utilites/ExpressError");
 
 
 const profileRouter = require("./routes/profileRouter");
@@ -30,21 +37,24 @@ mongoose.connect('mongodb://127.0.0.1:27017/project1').
 const app = express();
 
 
-
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname, 'public')))
+
+
 
 const sessionConfig = {
+    name: "sessionprojectid",
     secret: 'eaeiwojasfwdifsfdrjs1x213r232424290ze98r09t8!',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true, -save for deployment
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -52,6 +62,8 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(mongoSanitize());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -66,7 +78,18 @@ app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-})
+});
+
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+app.use(limiter)
+
+
 
 
 app.use("/profile", profileRouter);
@@ -83,11 +106,11 @@ app.get("/logout", (req, res) => {
     try {
         req.logOut(err => {
             if (err) return next(err);
-            req.flash('success', "Logged out!");
+            req.flash("success", "Logged out!");
             res.redirect('/');
         });
     } catch (e) {
-        req.flash('error', e.message);
+        req.flash("error", e.message);
         res.redirect('register');
     }
 });
@@ -98,12 +121,16 @@ app.get("/explore", async (req, res) => {
     res.render("explore")
 });
 
-app.get("/user/:id", async (req, res) => {
-    const { id } = req.params;
-    post = await Post.find({ author: id })
-    avatar = await Avatar.find({ author: id })
-    res.render("user", { post, avatar })
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404))
+});
 
+app.use((err, req, res, next) => {
+    backURL = req.header('Referer') || '/';
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = "Something Went Wrong!"
+    req.flash("error", err.stack)
+    res.status(statusCode).redirect(backURL);
 });
 
 

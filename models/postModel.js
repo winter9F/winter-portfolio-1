@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ExpressError = require("../utilites/ExpressError");
 
 
 const postSchema = new mongoose.Schema({

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const catchAsync = require("../utilites/catchAsync");
 
 const User = require("../models/userModel");
 
@@ -8,7 +9,7 @@ router.get("/", (req, res) => {
     res.render("user/register")
 });
 
-router.post("/", async (req, res) => {
+router.post("/", catchAsync(async (req, res) => {
     try {
         const { name, email, username, password } = req.body;
         const user = new User({ name, email, username });
@@ -22,7 +23,7 @@ router.post("/", async (req, res) => {
         req.flash('error', e.message);
         res.redirect('/explore');
     }
-});
+}));
 
 
 module.exports = router;

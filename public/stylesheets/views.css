@@ -1,5 +1,7 @@
 body {
     background-color: #e7e6ee;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
     color: #c9184a;
 }
 
@@ -8,6 +10,6 @@ body {
 }
 
 .btn {
-    background-color: #02ce6f;
+    --bs-btn-border-color: var(--bd-violet-bg);
     border: #02ce6f;
 }
