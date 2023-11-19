@@ -3,14 +3,14 @@ const ExpressError = require("../utilites/ExpressError");
 
 
 const postSchema = new mongoose.Schema({
-    text: {
+    text: [{
         type: String,
-    },
-    image: [{
+    }],
+    image: {
         url: { type: String },
         filename: { type: String },
 
-    }],
+    },
     author: {
         type: "ObjectId",
         ref: "User"

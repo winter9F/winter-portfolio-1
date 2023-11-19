@@ -12,13 +12,14 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
-const { rateLimit } = require('express-rate-limit')
 const mongoSanitize = require("express-mongo-sanitize");
-const helmet = require("helmet")
+const helmet = require("helmet");
+
 
 
 const catchAsync = require("./utilites/catchAsync");
 const ExpressError = require("./utilites/ExpressError");
+const limiter = require("./utilites/limiter");
 
 
 const profileRouter = require("./routes/profileRouter");
@@ -81,12 +82,7 @@ app.use((req, res, next) => {
 });
 
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    standardHeaders: true,
-    legacyHeaders: false,
-});
+
 app.use(limiter)
 
 
@@ -117,7 +113,6 @@ app.get("/logout", (req, res) => {
 
 
 app.get("/explore", async (req, res) => {
-
     res.render("explore")
 });
 
@@ -126,11 +121,11 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    backURL = req.header('Referer') || '/';
+
     const { statusCode = 500 } = err;
     if (!err.message) err.message = "Something Went Wrong!"
     req.flash("error", err.stack)
-    res.status(statusCode).redirect(backURL);
+    res.status(statusCode).redirect("back");
 });
 
 
