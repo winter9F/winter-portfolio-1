@@ -16,7 +16,7 @@
                     <img class="m-1"
                         src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465013/Example%20Profile/Explore%20page%20pics/jonathan-borba-n1B6ftPB5Eg-unsplash_w2plty.jpg"
                         class="rounded float-start m-2 flex-fill " style="min-width: 95%; max-width: 100%;" alt="">
-                    <div class="card-body">
+                    <div class="card-body d-none d-lg-block">
                         <h5 class="card-title">About Me</h5>
                         <div class="card-footer">
                             <p class="card-text">
@@ -27,11 +27,42 @@
                             </p>
                         </div>
                     </div>
+                    <div class="card-body d-lg-none">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#AboutMeModal">
+                            About Me
+                        </button>
+
+
+                        <div class="modal fade" id="AboutMeModal" tabindex="-1" aria-labelledby="AboutMeModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="AboutMeModalLabel">About Me</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Hello! My name is Jen! I'm a massive workaholic who spends WAY too much in
+                                        the office. I
+                                        love nature and travel! If only my busy life allowed me to do it more.... I
+                                        also having
+                                        an amazing dog named Barkely. If you follow me, you'll probably be seeing
+                                        him a lot
+                                        here!
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
-                <div class="card" style="">
-                    <h5 class="card-title m-3">Images</h5>
+
+                <div class="card d-none d-lg-flex">
+                    <h5 class="card-title m-3 ">Images</h5>
                     <div class="card-footer">
 
                         <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465017/Example%20Profile/Explore%20page%20pics/jennie-clavel-G0zoYDFvUXQ-unsplash_t4uyik.jpg"
@@ -46,12 +77,61 @@
                             class="rounded float-start m-2 " style="max-width: 40%;" alt="">
 
                     </div>
+                </div>
+                <div class="card d-lg-none">
+                    <h5 class="card-title m-3 ">Images</h5>
+
+
+
+
+                    <div class="card-footer">
+                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465017/Example%20Profile/Explore%20page%20pics/jennie-clavel-G0zoYDFvUXQ-unsplash_t4uyik.jpg"
+                            class="rounded float-start m-2 " style="max-width: 30%;" alt="">
+                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465018/Example%20Profile/Explore%20page%20pics/undine-tackmann-8mxSINYFoSw-unsplash_doushd.jpg"
+                            class="rounded float-start m-2 " style="max-width: 30%;" alt="">
+                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465013/Example%20Profile/Explore%20page%20pics/leonardo-yip-rn-NLirHQPY-unsplash_sf5g2e.jpg"
+                            class="rounded float-start m-2 " style="max-width: 30%;" alt="">
+                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465016/Example%20Profile/Explore%20page%20pics/broberta-pgW0cB9ALJ8-unsplash_iiekyb.jpg"
+                            class="rounded float-start m-2 " style="max-width: 30%;" alt="">
+
+
+
+
+                        <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#ImagesModal">
+                            More Images
+                        </button>
+
+                        <div class="modal fade" id="ImagesModal" tabindex="-1" aria-labelledby="ImagesModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="ImagesModalLabel">Images</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465017/Example%20Profile/Explore%20page%20pics/jennie-clavel-G0zoYDFvUXQ-unsplash_t4uyik.jpg"
+                                            class="rounded float-start m-2 " style="max-width: 40%;" alt="">
+                                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465018/Example%20Profile/Explore%20page%20pics/undine-tackmann-8mxSINYFoSw-unsplash_doushd.jpg"
+                                            class="rounded float-start m-2 " style="max-width: 40%;" alt="">
+                                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465013/Example%20Profile/Explore%20page%20pics/leonardo-yip-rn-NLirHQPY-unsplash_sf5g2e.jpg"
+                                            class="rounded float-start m-2 " style="max-width: 40%;" alt="">
+                                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465016/Example%20Profile/Explore%20page%20pics/broberta-pgW0cB9ALJ8-unsplash_iiekyb.jpg"
+                                            class="rounded float-start m-2 " style="max-width: 40%;" alt="">
+                                        <img src="https://res.cloudinary.com/dqggp5pir/image/upload/v1699465017/Example%20Profile/Explore%20page%20pics/luke-stackpoole-gxof7su_KJk-unsplash_xqsioy.jpg"
+                                            class="rounded float-start m-2 " style="max-width: 40%;" alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
-
-
             </div>
-
 
 
 

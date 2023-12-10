@@ -15,21 +15,14 @@ const methodOverride = require("method-override");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 
-
-
-const catchAsync = require("./utilites/catchAsync");
-const ExpressError = require("./utilites/ExpressError");
-const limiter = require("./utilites/limiter");
-
+const ExpressError = require("./utilities/ExpressError");
+const limiter = require("./utilities/limiter");
 
 const profileRouter = require("./routes/profileRouter");
 const registerRouter = require("./routes/registerRouter")
 const loginRouter = require("./routes/loginRouter")
 
-
 const User = require("./models/userModel");
-const Post = require("./models/postModel");
-const Avatar = require("./models/avatarModel");
 
 mongoose.connect('mongodb://127.0.0.1:27017/project1').
     catch(error => handleError(error));
@@ -41,7 +34,7 @@ const app = express();
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
@@ -82,21 +75,21 @@ app.use((req, res, next) => {
 });
 
 
-
 app.use(limiter)
-
-
-
 
 app.use("/profile", profileRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 
 
+
 app.get("/", (req, res) => {
     res.render("home")
 });
 
+app.get("/explore", (req, res) => {
+    res.render("explore")
+});
 
 app.get("/logout", (req, res) => {
     try {
@@ -111,23 +104,19 @@ app.get("/logout", (req, res) => {
     }
 });
 
-
-app.get("/explore", async (req, res) => {
-    res.render("explore")
-});
-
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404))
 });
+
+
 
 app.use((err, req, res, next) => {
 
     const { statusCode = 500 } = err;
     if (!err.message) err.message = "Something Went Wrong!"
-    req.flash("error", err.stack)
+    req.flash("error", err.message)
     res.status(statusCode).redirect("back");
 });
-
 
 app.listen(3000, () => {
     console.log("Port 3000 Active!")

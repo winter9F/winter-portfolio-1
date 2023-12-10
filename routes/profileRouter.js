@@ -4,14 +4,12 @@ const multer = require("multer");
 const { storage, cloudinary } = require("../cloudinary");
 const upload = multer({ storage });
 
-const ExpressError = require("../utilites/ExpressError");
-const catchAsync = require("../utilites/catchAsync");
-const postLimiter = require("../utilites/postLimiter");
+const catchAsync = require("../utilities/catchAsync");
+const postLimiter = require("../utilities/postLimiter");
 
 const User = require("../models/userModel");
 const Post = require("../models/postModel");
 const Avatar = require("../models/avatarModel");
-
 
 
 
@@ -22,7 +20,6 @@ const isLoggedIn = (req, res, next) => {
     };
     next();
 };
-
 
 const isAuthor = async (req, res, next) => {
 
@@ -39,8 +36,6 @@ const isAuthor = async (req, res, next) => {
 
 
 
-
-
 router.get("/:id", catchAsync(async (req, res) => {
     const { id } = req.params;
     const post = await Post.find({ author: id });
@@ -52,6 +47,7 @@ router.get("/:id", catchAsync(async (req, res) => {
 
 
 router.post("/", isLoggedIn, postLimiter, upload.single("image"), catchAsync(async (req, res, next) => {
+    const userID = req.user._id
     const post = new Post(req.body);
     if (req.file) {
         post.image = {
@@ -62,11 +58,12 @@ router.post("/", isLoggedIn, postLimiter, upload.single("image"), catchAsync(asy
     };
     post.author = req.user;
     await post.save();
-    res.redirect("back");
+    res.redirect(`/profile/${userID}`)
 }));
 
 
 router.post("/avatar", isLoggedIn, postLimiter, upload.single("image"), catchAsync(async (req, res, next) => {
+    const userID = req.user._id
     const avatar = new Avatar(req.body);
     avatar.image = {
         url: req.file.path,
@@ -75,12 +72,12 @@ router.post("/avatar", isLoggedIn, postLimiter, upload.single("image"), catchAsy
     };
     avatar.author = req.user;
     await avatar.save();
-
-    res.redirect("back");
+    res.redirect(`/profile/${userID}`)
 }));
 
 
 router.put("/avatar/:id", isLoggedIn, upload.single("image"), catchAsync(async (req, res) => {
+    const userID = req.user._id
     const { id } = (req.params);
     if (!req.file) {
         const avatar = await Avatar.findByIdAndUpdate(id, req.body);
@@ -95,13 +92,13 @@ router.put("/avatar/:id", isLoggedIn, upload.single("image"), catchAsync(async (
         };
         await avatar.save();
     };
-
-    res.redirect("back");
+    res.redirect(`/profile/${userID}`)
 
 }));
 
 
 router.put("/:id", isLoggedIn, isAuthor, upload.single("image"), catchAsync(async (req, res) => {
+    const userID = req.user._id
     const { id } = (req.params);
     if (!req.file) {
         const post = await Post.findByIdAndUpdate(id, req.body);
@@ -117,21 +114,23 @@ router.put("/:id", isLoggedIn, isAuthor, upload.single("image"), catchAsync(asyn
         await post.save();
     };
 
-    res.redirect("back");
+    res.redirect(`/profile/${userID}`)
 
 }));
 
 
 router.delete("/:id", isLoggedIn, catchAsync(async (req, res) => {
+    const userID = req.user._id
     const { id } = (req.params);
     const data = await Post.findByIdAndDelete(id);
     if (data.image) {
         const { filename } = data.image;
         await cloudinary.uploader.destroy(filename);
     }
-    res.redirect("back");
+    res.redirect(`/profile/${userID}`)
 
 }));
+
 
 
 module.exports = router;

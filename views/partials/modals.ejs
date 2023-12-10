@@ -9,7 +9,7 @@
                 <form action="/profile" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <div class="form-floating mt-5">
                         <textarea class="form-control" id="text" placeholder="Leave a comment here..." name="text"
-                            required style="height: 150px"></textarea>
+                            required style="height: 150px" maxlength="250"></textarea>
                         </textarea>
                         <label for="floatingTextarea2">Leave a comment
                             here...</label>
@@ -59,7 +59,7 @@
                 <form action="/profile/avatar" method="POST" enctype="multipart/form-data" class="needs-validation"
                     novalidate>
                     <textarea class="form-control" id="text" placeholder="Tell us about you..." name="text"
-                        style="height: 150px" required></textarea>
+                        style="height: 150px" minlength="5" maxlength="250" required></textarea>
                     </textarea>
                     <label for="floatingTextarea2">Tell us about you...</label>
                     <input class="form-control" name="image" type="file" id="formFile" required>
