@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="d-lg-none">
                                     <div class="card-body">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="#AboutMeModal">
                                             About Me
                                         </button>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="card-footer border-0 align-self-end">
                                     <%if(currentUser && user.equals(currentUser.id)){%>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#avatarModal">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -130,7 +130,8 @@
                     <div>
                         <%if(post.length){%>
                             <div class="card" style="min-height: 10rem;">
-                                <div class="card-body border-bottom border-secondary-subtle">
+                                <h5 class="card-title m-3 ">Images</h5>
+                                <div class="card-footer border-bottom border-secondary-subtle">
                                     <%for( let {image:{url}} of post){%>
                                         <img src="<%=[url]%>" class="rounded float-start m-2 " style="max-width: 25%;"
                                             alt="">
@@ -142,12 +143,41 @@
 
                                 <div class="card-footer border-0 align-self-end">
                                     <%if(currentUser && (id===currentUser.id)){%>
-                                        <button type="button" class="btn btn-sm btn-dark " data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-sm btn-success " data-bs-toggle="modal"
                                             data-bs-target="#imageModal">
                                             Upload new image
                                         </button>
                                         <%}%>
+                                            <%if(!currentUser || !user.equals(currentUser.id)){%>
+                                                <button type="button" class="btn btn-sm btn-success"
+                                                    data-bs-toggle="modal" data-bs-target="#ImagesModal">
+                                                    More Images
+                                                </button>
+
+                                                <div class="modal fade" id="ImagesModal" tabindex="-1"
+                                                    aria-labelledby="ImagesModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="ImagesModalLabel">
+                                                                    Images</h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <%for( let {image:{url}} of post){%>
+                                                                <div class="modal-body">
+                                                                    <img style="max-width: 60%;" src="<%=url%>" alt="">
+
+                                                                </div>
+                                                                <%}%>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%}%>
                                 </div>
+
+
 
 
 
@@ -176,7 +206,7 @@
                         </div>
                         <div class="m-1 align-self-end">
                             <%if(currentUser && user.equals(currentUser.id)){%>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#postModal">
                                     New Post
                                 </button>
@@ -201,7 +231,7 @@
                                             <div>
                                                 <div class=>
                                                     <%if(currentUser && author.equals(currentUser.id)){%>
-                                                        <button type="button" class="btn btn-primary btn-sm me-2"
+                                                        <button type="button" class="btn btn-success btn-sm me-2"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#editPostModal<%=id%>">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -249,7 +279,7 @@
 
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button class="btn btn-primary">Save
+                                                                <button class="btn btn-success">Save
                                                                     changes</button>
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
@@ -263,7 +293,7 @@
                                             <div>
                                                 <div>
                                                     <%if(currentUser && author.equals(currentUser.id)){%>
-                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                        <button type="button" class="btn btn-success btn-sm"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#deletePostModal<%=id%>">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"

@@ -1,5 +1,5 @@
 body {
-    background-color: #e7e6ee;
+    background-color: #d3d1dd;
     font-family: 'Roboto Slab', serif;
     font-weight: 400;
     color: #c9184a;
@@ -7,29 +7,4 @@ body {
 
 .box {
     background-color: #4a5859
-}
-
-.FavoriteColorRed {
-    background-color: #4a5859
-}
-
-.FavoriteColorBlue {
-    background-color: #4a5859
-}
-
-.FavoriteColorGreen {
-    background-color: #4a5859
-}
-
-.FavoriteColorPurple {
-    background-color: #4a5859
-}
-
-.FavoriteColorPink {
-    background-color: #4a5859
-}
-
-.btn {
-    --bs-btn-border-color: var(--bd-violet-bg);
-    border: #02ce6f;
 }

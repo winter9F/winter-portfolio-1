@@ -1,7 +1,26 @@
 body {
     height: 100vh;
     background-repeat: no-repeat;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://res.cloudinary.com/dqggp5pir/image/upload/v1698775093/bgCarousel%20Home/Home_11_zk5obt.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://res.cloudinary.com/dqggp5pir/image/upload/v1702258525/Winter%20Portfolio%201/SocialAppBackground_ktjvhr.jpg);
     background-size: cover;
     background-position: center;
+
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 500px;
+
+
+}
+
+.card {
+    box-shadow: 0px 4px 8px;
+}
+
+h1 {
+    font-size: 50px;
 }

@@ -1,17 +1,26 @@
 <% layout("layout/boilerplate") %>
     <link rel="stylesheet" href="stylesheets/home.css" type="text/css">
 
-    <div class="text-center">
-        <h1 class="mb-5 f-1">HOME</h1>
-    </div>
-    <div class="text-center">
-        <div class="mb-3 ">
-            <%if(currentUser){%>
-                <a class="btn btn-outline-warning" href="/profile/<%=currentUser.id%>">User Page</a>
-                <p>
 
-                </p>
-                <%}%>
+    <div class="container">
+        <div class=" card p-5">
+
+            <div>
+                <h1 class="mb-5">BookSpace</h1>
+            </div>
+            <div class="">
+                <div class="mb-3">
+                    <%if(currentUser){%>
+                        <a class="btn btn-info" href="/profile/<%=currentUser.id%>">User Page</a>
+                        <p>
+
+                        </p>
+                        <%}%>
+
+                </div>
+                <a class="btn btn-success btn-lg" href="/explore">Explore</a>
+            </div>
+
 
         </div>
-        <a class="btn btn-success btn-lg" href="/explore">Explore</a>
+    </div>
