@@ -85,7 +85,7 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-dark">Upload</button>
+                                            <button class="btn btn-dark">Update</button>
                                             </form>
                                         </div>
                                     </div>
@@ -164,12 +164,15 @@
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <%for( let {image:{url}} of post){%>
-                                                                <div class="modal-body">
-                                                                    <img style="max-width: 60%;" src="<%=url%>" alt="">
+                                                            <div class="container">
+                                                                <%for( let {image:{url}} of post){%>
+                                                                    <div class="modal-body">
+                                                                        <img style="max-width: 60%;" src="<%=url%>"
+                                                                            alt="">
 
-                                                                </div>
-                                                                <%}%>
+                                                                    </div>
+                                                                    <%}%>
+                                                            </div>
 
                                                         </div>
                                                     </div>
