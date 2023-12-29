@@ -1,7 +1,7 @@
 Winter-Social-Network App
 
   - **Version:** 1.0.0
-  - **Liscense:** ISC
+  - **License:** ISC
 
 
 
