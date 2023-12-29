@@ -91,22 +91,22 @@ To get started with Winter Social Network App, follow these steps:
 #Dependencies
 
   ```
-   - **cloudinary:** ^1.41.0
-   - **connect-flash:** ^0.1.1
-   - **dotenv:** "16.3.1
-   - **ejs-mate:** ^4.0.0
-   - **express:** ^4.18.2
-   - **express-mongo-sanitize:** ^2.2.0
-   - **express-rate-limit:** ^7.1.4
-   - **express-session:** ^1.17.3
-   - **helmet:** ^7.1.0
-   - **method-override:** ^3.0.0
-   - **mongoose:** ^7.6.3
-   - **multer:** ^1.4.5-lts.1
-   - **multer-storage-cloudinary:** ^4.0.0
-   - **passport:** ^0.6.0
-   - **passport-local:** ^1.0.0
-   - **passport-local-mongoose:** ^8.0.0
+   - cloudinary: `^1.41.0`
+   - connect-flash: `^0.1.1`
+   - dotenv: `"16.3.1`
+   - ejs-mate: `^4.0.0`
+   - express: `^4.18.2`
+   - express-mongo-sanitize: `^2.2.0`
+   - express-rate-limit: `^7.1.4`
+   - express-session: `^1.17.3`
+   - helmet: `^7.1.0`
+   - method-override: `^3.0.0`
+   - mongoose: `^7.6.3`
+   - multer: `^1.4.5-lts.1`
+   - multer-storage-cloudinary: `^4.0.0`
+   - passport: `^0.6.0`
+   - passport-local: `^1.0.0`
+   - passport-local-mongoose: `^8.0.0`
 
   ```
 
